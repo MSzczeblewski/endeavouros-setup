@@ -164,18 +164,18 @@ if gum confirm "Do you need development setup?" ;then
   ssh-keygen
 
   # java
-  echo -e "${GREEN}"
-  figlet "Java"
-  echo -e "${NONE}"
-  sudo pacman -Sy jre21-openjdk jdk21-openjdk maven --noconfirm
-  yay -S google-java-format intellij-idea-ultimate-edition --noconfirm
-
-  # python
-  echo -e "${GREEN}"
-  figlet "Python"
-  echo -e "${NONE}"
-  sudo pacman -Sy python-pip --noconfirm
-  yay -S pycharm-professional --noconfirm
+#  echo -e "${GREEN}"
+#  figlet "Java"
+#  echo -e "${NONE}"
+#  sudo pacman -Sy jre21-openjdk jdk21-openjdk maven --noconfirm
+#  yay -S google-java-format intellij-idea-ultimate-edition --noconfirm
+#
+#  # python
+#  echo -e "${GREEN}"
+#  figlet "Python"
+#  echo -e "${NONE}"
+#  sudo pacman -Sy python-pip --noconfirm
+#  yay -S pycharm-professional --noconfirm
 
   # haskell
   # echo -e "${GREEN}"
@@ -185,68 +185,68 @@ if gum confirm "Do you need development setup?" ;then
   # yay -S hlint-bin --noconfirm
 
   # mysql
-  echo -e "${GREEN}"
-  figlet "Mysql"
-  echo -e "${NONE}"
-  sudo pacman -Sy mariadb --noconfirm
-  sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-  sudo systemctl enable --now mariadb
-  sudo mysql_secure_installation
-  sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';"
+#  echo -e "${GREEN}"
+#  figlet "Mysql"
+#  echo -e "${NONE}"
+#  sudo pacman -Sy mariadb --noconfirm
+#  sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+#  sudo systemctl enable --now mariadb
+#  sudo mysql_secure_installation
+#  sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';"
 
   # postgres
-  echo -e "${GREEN}"
-  figlet "Postgres"
-  echo -e "${NONE}"
-  sudo pacman -Sy postgresql --noconfirm
-  sudo su - postgres -c "initdb -D '/var/lib/postgres/data'"
-  sudo systemctl enable --now postgresql
-  sudo psql -U postgres -c "ALTER USER postgres PASSWORD 'root';"
-
-  # redis
-  echo -e "${GREEN}"
-  figlet "Redis"
-  echo -e "${NONE}"
-  sudo pacman -Sy redis --noconfirm
-  sudo systemctl enable --now redis
-  redis-cli config set requirepass root
-
-  # node
-  echo -e "${GREEN}"
-  figlet "Node"
-  echo -e "${NONE}"
-  yay -S nvm --noconfirm
-  source /usr/share/nvm/init-nvm.sh
-  nvm install --lts
-
-  # docker
-  echo -e "${GREEN}"
-  figlet "Docker"
-  echo -e "${NONE}"
-  sudo pacman -Sy docker --noconfirm
-  sudo systemctl enable --now docker.service
-  sudo usermod -aG docker $USER
-  sudo pacman -Sy docker-compose --noconfirm
-
-  # vscode
-  echo -e "${GREEN}"
-  figlet "VSCode"
-  echo -e "${NONE}"
-  sudo pacman -Sy gnome-keyring --noconfirm
-  yay -S visual-studio-code-bin --noconfirm
-
-  # rest client
-  yay -S insomnia-bin --noconfirm
-
-  # neovim
-  echo -e "${GREEN}"
-  figlet "Neovim"
-  echo -e "${NONE}"
-  sudo pacman -Sy neovim fzf ripgrep fd --noconfirm
-  yay -S vim-plug --noconfirm
-  git clone https://github.com/NvChad/starter ~/.config/nvchad
-  git clone --depth 1 https://github.com/AstroNvim/template ~/.config/astronvim
-  git clone https://github.com/LazyVim/starter ~/.config/lazyvim
+#  echo -e "${GREEN}"
+#  figlet "Postgres"
+#  echo -e "${NONE}"
+#  sudo pacman -Sy postgresql --noconfirm
+#  sudo su - postgres -c "initdb -D '/var/lib/postgres/data'"
+#  sudo systemctl enable --now postgresql
+#  sudo psql -U postgres -c "ALTER USER postgres PASSWORD 'root';"
+#
+#  # redis
+#  echo -e "${GREEN}"
+#  figlet "Redis"
+#  echo -e "${NONE}"
+#  sudo pacman -Sy redis --noconfirm
+#  sudo systemctl enable --now redis
+#  redis-cli config set requirepass root
+#
+#  # node
+#  echo -e "${GREEN}"
+#  figlet "Node"
+#  echo -e "${NONE}"
+#  yay -S nvm --noconfirm
+#  source /usr/share/nvm/init-nvm.sh
+#  nvm install --lts
+#
+#  # docker
+#  echo -e "${GREEN}"
+#  figlet "Docker"
+#  echo -e "${NONE}"
+#  sudo pacman -Sy docker --noconfirm
+#  sudo systemctl enable --now docker.service
+#  sudo usermod -aG docker $USER
+#  sudo pacman -Sy docker-compose --noconfirm
+#
+#  # vscode
+#  echo -e "${GREEN}"
+#  figlet "VSCode"
+#  echo -e "${NONE}"
+#  sudo pacman -Sy gnome-keyring --noconfirm
+#  yay -S visual-studio-code-bin --noconfirm
+#
+#  # rest client
+#  yay -S insomnia-bin --noconfirm
+#
+#  # neovim
+#  echo -e "${GREEN}"
+#  figlet "Neovim"
+#  echo -e "${NONE}"
+#  sudo pacman -Sy neovim fzf ripgrep fd --noconfirm
+#  yay -S vim-plug --noconfirm
+#  git clone https://github.com/NvChad/starter ~/.config/nvchad
+#  git clone --depth 1 https://github.com/AstroNvim/template ~/.config/astronvim
+#  git clone https://github.com/LazyVim/starter ~/.config/lazyvim
 fi
 
 # -----------------------------------------------------
@@ -365,7 +365,8 @@ echo "/swapfile				  swap		 swap	 defaults   0 0" | sudo tee -a /etc/fstab
 echo -e "${GREEN}"
 figlet "ZenKernel"
 echo -e "${NONE}"
-sudo pacman -Sy linux-zen linux-zen-headers --noconfirm
+#sudo pacman -Sy linux-zen linux-zen-headers --noconfirm
+sudo pacman -Sy linux linux-firmware --noconfirm
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # nvidia drivers
