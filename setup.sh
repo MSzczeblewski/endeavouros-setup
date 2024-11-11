@@ -57,10 +57,14 @@ _copyDotfiles() {
     echo "TEST GOOD"
     cp -rfv ./config/.gtkrc-2.0 ./config/.Xresources ./config/.bashrc ./config/.zshrc ./config/.p10k.zsh ~/
     mkdir -p ~/.config/qBittorrent && cp -rf ./config/qbittorrent/qbittorrent.qbtheme ~/.config/qBittorrent
-    cp -rfv ./config/alacritty ./config/dunst ./config/gtk-3.0 ./config/gtk-4.0 ./config/hypr ./config/picom \
+    cp -rfv ./config/alacritty ./config/dunst ./config/gtk-3.0 ./config/gtk-4.0 ./config/picom \
         ./config/kitty ./config/scripts ./config/Thunar ./config/wal ./config/waybar \
         ./config/wlogout ./config/fastfetch \
         ~/.config
+    cp -rfv ./config/hypr/hypr* ~./config/hypr/
+    rsync -av --exclude="monitor.conf" ./config/hypr/conf/ ~/.config/hypr/conf/
+    #Only copy some configs. Don't want to overwrite monitors
+
     echo "TEST GOOD"
 }
 
