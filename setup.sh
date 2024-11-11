@@ -131,14 +131,15 @@ sudo pacman -Sy hyprland waybar rofi-wayland dunst hyprpaper hyprlock hypridle x
                 alacritty kitty vim zsh picom qt5-wayland qt6-wayland cliphist \
                 thunar gvfs thunar-volman tumbler thunar-archive-plugin ark \
                 network-manager-applet blueman brightnessctl \
-                slurp grim xclip swappy openssh \
+                slurp grim xclip swappy \
                 ttf-font-awesome otf-font-awesome ttf-fira-sans ttf-fira-code   \
                 ttf-firacode-nerd gnome-themes-extra gtk-engine-murrine nwg-look \
+                openssh tree \
                 --noconfirm
 yay -S wlogout waypaper qogir-gtk-theme qogir-icon-theme --noconfirm
 
 # oh my zsh
-sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -) --unattended"
+sh -c "$(wget https://install.ohmyz.sh -O -) --unattended"
 chsh -s $(which zsh)
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
@@ -238,15 +239,12 @@ if gum confirm "Do you need development setup?" ;then
 #  # rest client
 #  yay -S insomnia-bin --noconfirm
 #
-#  # neovim
-#  echo -e "${GREEN}"
-#  figlet "Neovim"
-#  echo -e "${NONE}"
-#  sudo pacman -Sy neovim fzf ripgrep fd --noconfirm
-#  yay -S vim-plug --noconfirm
-#  git clone https://github.com/NvChad/starter ~/.config/nvchad
-#  git clone --depth 1 https://github.com/AstroNvim/template ~/.config/astronvim
-#  git clone https://github.com/LazyVim/starter ~/.config/lazyvim
+  # neovim
+  echo -e "${GREEN}"
+  figlet "Neovim"
+  echo -e "${NONE}"
+  sudo pacman -Sy neovim fzf ripgrep fd --noconfirm
+  git clone https://github.com/MSzczeblewski/kickstart.nvim.git ~./config/nvim
 fi
 
 # -----------------------------------------------------
