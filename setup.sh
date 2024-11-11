@@ -7,6 +7,7 @@ fi
 
 clear
 GREEN='\033[0;32m'
+PURPLE='\033[0;35m'
 NONE='\033[0m'
 
 # -----------------------------------------------------
@@ -43,6 +44,7 @@ _installPackagesPacman() {
     sudo pacman --noconfirm -S "${toInstall[@]}";
 }
 
+
 # required packages for the installer
 installer_packages=(
     "wget"
@@ -50,6 +52,55 @@ installer_packages=(
     "gum"
     "figlet"
 )
+
+_copyDotfiles() {
+    echo "TEST GOOD"
+    cp -rfv ./config/.gtkrc-2.0 ./config/.Xresources ./config/.bashrc ./config/.zshrc ./config/.p10k.zsh ~/
+    mkdir -p ~/.config/qBittorrent && cp -rf ./config/qbittorrent/qbittorrent.qbtheme ~/.config/qBittorrent
+    cp -rfv ./config/alacritty ./config/dunst ./config/gtk-3.0 ./config/gtk-4.0 ./config/hypr ./config/picom \
+        ./config/kitty ./config/scripts ./config/Thunar ./config/wal ./config/waybar \
+        ./config/wlogout ./config/fastfetch \
+        ~/.config
+    echo "TEST GOOD"
+}
+
+# Install or Update
+_chooseMode() {
+    echo -e "${PURPLE}"
+    figlet "Choose Mode"
+    echo -e "${NONE}"
+
+    ACTION=$(gum choose "Install" "Copy dotfiles" "Quit")
+
+    case $ACTION in
+        "Install")
+            echo "You chose to install dotfiles."
+            # Continue the rest of the script after this case
+            ;;
+        "Copy dotfiles")
+            echo "You chose to copy dotfiles."
+            _copyDotfiles
+            exit 0
+            ;;
+        "Quit")
+            exit 1
+            ;;
+        *)
+            echo "Invalid selection."
+            exit 1
+            ;;
+    esac
+}
+
+# -----------------------------------------------------
+# START HERE 
+# -----------------------------------------------------
+
+
+# -----------------------------------------------------
+# Install or Update 
+# -----------------------------------------------------
+_chooseMode
 
 # -----------------------------------------------------
 # synchronizing package databases
@@ -64,17 +115,18 @@ echo ":: Checking that required packages are installed..."
 _installPackagesPacman "${installer_packages[@]}";
 echo
 
-if gum confirm "Have you checked the installation script before running?" ;then
-    echo
-    echo ":: Installing Hyprland and additional packages"
-    echo
-elif [ $? -eq 130 ]; then
-    exit 130
-else
-    echo
-    echo ":: Installation canceled."
-    exit;
-fi
+#if gum confirm "Have you checked the installation script before running?" ;then
+#    echo
+#    echo ":: Installing Hyprland and additional packages"
+#    echo
+#elif [ $? -eq 130 ]; then
+#    exit 130
+#else
+#    echo
+#    echo ":: Installation canceled."
+#    exit;
+#fi
+#echo -e "${NONE}"
 
 echo -e "${GREEN}"
 cat <<"EOF"
@@ -245,6 +297,7 @@ if gum confirm "Do you need development setup?" ;then
   echo -e "${NONE}"
   sudo pacman -Sy neovim fzf ripgrep fd --noconfirm
   git clone https://github.com/MSzczeblewski/kickstart.nvim.git ~./config/nvim
+  git remote set-url origin git@github.com:MSzczeblewski/kickstart.nvim.git
 fi
 
 # -----------------------------------------------------
