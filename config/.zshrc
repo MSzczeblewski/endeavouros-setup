@@ -283,8 +283,6 @@ ex ()
 #cpufetch
 #colorscript random
 
-source /usr/share/nvm/init-nvm.sh
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -293,15 +291,13 @@ if type rg &> /dev/null; then
   export FZF_DEFAULT_OPTS='-m'
 fi
 
-# source ~/.ghcup/env # ghcup-env
-
-# Maven
-alias mvn-ci="mvn clean install"
-alias mvn-ci-sk="mvn clean install -DskipTests"
-alias mvn-it="mvn failsafe:integration-test"
-alias mvn-check-updates="mvn versions:display-property-updates"
-
-# neovim
-alias nvchad="NVIM_APPNAME=nvchad nvim"
-alias lazyvim="NVIM_APPNAME=lazyvim nvim"
-alias astronvim="NVIM_APPNAME=astronvim nvim"
+#----------------------------------------
+#My Changes
+#----------------------------------------
+alias tree='tree -a -I .git'
+alias ll="${aliases[ls]:-ls} -al"
+alias dfc='cd ~/.dotfiles/home/'
+alias nfc='cd ~/.config/nvim/'
+alias nv='/usr/bin/nvim'
+alias sleep='systemctl suspend'
+alias off='systemctl poweroff'
