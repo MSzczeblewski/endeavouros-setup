@@ -301,7 +301,6 @@ if gum confirm "Do you need development setup?" ;then
   echo -e "${NONE}"
   sudo pacman -Sy neovim fzf ripgrep fd --noconfirm
   git clone https://github.com/MSzczeblewski/kickstart.nvim.git ~./config/nvim
-  git remote set-url origin git@github.com:MSzczeblewski/kickstart.nvim.git
 fi
 
 # -----------------------------------------------------
