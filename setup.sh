@@ -99,13 +99,6 @@ _chooseMode() {
 # -----------------------------------------------------
 # START HERE 
 # -----------------------------------------------------
-
-
-# -----------------------------------------------------
-# Install or Update 
-# -----------------------------------------------------
-_chooseMode
-
 # -----------------------------------------------------
 # synchronizing package databases
 # -----------------------------------------------------
@@ -118,6 +111,11 @@ echo
 echo ":: Checking that required packages are installed..."
 _installPackagesPacman "${installer_packages[@]}";
 echo
+
+# -----------------------------------------------------
+# Install or Update 
+# -----------------------------------------------------
+_chooseMode
 
 #if gum confirm "Have you checked the installation script before running?" ;then
 #    echo
