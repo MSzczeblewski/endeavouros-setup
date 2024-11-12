@@ -1,138 +1,123 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Personal Zsh configuration file. It is strongly recommended to keep all
+# shell customization and configuration (including exported environment
+# variables such as PATH) in this file or in files sourced from it.
+#
+# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-# Path to your oh-my-zsh installation.
-#installation via script from github
-export ZSH="/home/$USER/.oh-my-zsh"
+# Periodic auto-update on Zsh startup: 'ask' or 'no'.
+# You can manually run `z4h update` to update everything.
+zstyle ':z4h:' auto-update      'no'
+# Ask whether to auto-update this often; has no effect if auto-update is 'no'.
+zstyle ':z4h:' auto-update-days '28'
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# if you installed the package oh-my-zsh-powerline-theme-git then you type here "powerline" as zsh theme
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# Keyboard type: 'mac' or 'pc'.
+zstyle ':z4h:bindkey' keyboard  'pc'
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
+# Don't start tmux.
+zstyle ':z4h:' start-tmux       no
 
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Mark up shell's output with semantic information.
+zstyle ':z4h:' term-shell-integration 'yes'
 
-# ZSH_THEME_RANDOM_IGNORED=(pygmalion tjkirch_mod)
+# Right-arrow key accepts one character ('partial-accept') from
+# command autosuggestions or the whole thing ('accept')?
+zstyle ':z4h:autosuggestions' forward-char 'accept'
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# Recursively traverse directories when TAB-completing files.
+#zstyle ':z4h:fzf-complete' recurse-dirs 'no'
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# Enable direnv to automatically source .envrc files.
+zstyle ':z4h:direnv'         enable 'no'
+# Show "loading" and "unloading" notifications from direnv.
+zstyle ':z4h:direnv:success' notify 'yes'
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# Enable ('yes') or disable ('no') automatic teleportation of z4h over
+# SSH when connecting to these hosts.
+zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
+zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
+# The default value if none of the overrides above match the hostname.
+zstyle ':z4h:ssh:*'                   enable 'no'
 
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Send these files over to the remote host when connecting over SSH to the
+# enabled hosts.
+zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# Clone additional Git repositories from GitHub.
+#
+# This doesn't do anything apart from cloning the repository and keeping it
+# up-to-date. Cloned files can be used after `z4h init`. This is just an
+# example. If you don't plan to use Oh My Zsh, delete this line.
+z4h install ohmyzsh/ohmyzsh || return
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# Install or update core components (fzf, zsh-autosuggestions, etc.) and
+# initialize Zsh. After this point console I/O is unavailable until Zsh
+# is fully initialized. Everything that requires user interaction or can
+# perform network I/O must be done above. Everything else is best done below.
+z4h init || return
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# Extend PATH.
+path=(~/bin $path)
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# Export environment variables.
+export GPG_TTY=$TTY
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+# Source additional local files if they exist.
+z4h source ~/.env.zsh
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+# Use additional Git repositories pulled in with `z4h install`.
+#
+# This is just an example that you should delete. It does nothing useful.
+z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
+z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Define key bindings.
+z4h bindkey z4h-backward-kill-word  Ctrl+Backspace     Ctrl+H
+z4h bindkey z4h-backward-kill-zword Ctrl+Alt+Backspace
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+z4h bindkey undo Ctrl+/ Shift+Tab  # undo the last command line change
+z4h bindkey redo Alt+/             # redo the last undone command line change
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+z4h bindkey z4h-cd-back    Alt+Left   # cd into the previous directory
+z4h bindkey z4h-cd-forward Alt+Right  # cd into the next directory
+z4h bindkey z4h-cd-up      Alt+Up     # cd into the parent directory
+zstyle ':z4h:fzf-dir-history' fzf-bindings tab:repeat
+z4h bindkey z4h-fzf-dir-history Alt+Down # search over directory history
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+# Autoload functions.
+autoload -Uz zmv
 
-source $ZSH/oh-my-zsh.sh
+# Define functions and completions.
+function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+compdef _directories md
 
-# User configuration
+# Define named directories: ~w <=> Windows home directory on WSL.
+[[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Define aliases.
+alias tree='tree -a -I .git'
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-setopt GLOB_DOTS
-#share commands between terminal instances or not
-unsetopt SHARE_HISTORY
-#setopt SHARE_HISTORY
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
-export HISTCONTROL=ignoreboth:erasedups
-
-# Make vim the default editor
-
-export EDITOR='nvim'
-export VISUAL='nvim'
-
-#PS1='[\u@\h \W]\$ '
-
-if [ -d "$HOME/.bin" ] ;
-  then PATH="$HOME/.bin:$PATH"
-fi
-
-if [ -d "$HOME/.local/bin" ] ;
-  then PATH="$HOME/.local/bin:$PATH"
-fi
-
+# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
+setopt glob_dots     # no special treatment for file names with a leading dot
+#setopt no_auto_menu  # require an extra TAB press to open the completion menu
+setopt auto_menu  # require an extra TAB press to open the completion menu
+# Recursively traverse directories when TAB-completing files.
+zstyle ':z4h:fzf-complete' recurse-dirs yes
+zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
+#-----------------------------------------------------------------------------
+# My Changes
+#-----------------------------------------------------------------------------
 #list
 alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -la'
 alias l='ls'
 alias l.="ls -A | egrep '^\.'"
+#alias ll="${aliases[ls]:-ls} -al"
 
 #fix obvious typo's
 alias cd..='cd ..'
 alias pdw="pwd"
 alias udpate='sudo pacman -Syyu'
-alias upate='sudo pacman -Syyu'
-alias updte='sudo pacman -Syyu'
-alias updqte='sudo pacman -Syyu'
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
@@ -229,9 +214,6 @@ alias fix-keyserver="[ -d ~/.gnupg ] || mkdir ~/.gnupg ; cp /etc/pacman.d/gnupg/
 alias probe="sudo -E hw-probe -all -upload"
 alias sysfailed="systemctl list-units --failed"
 
-#shutdown or reboot
-alias ssn="sudo shutdown now"
-alias sr="sudo reboot"
 
 #give the list of all installed desktops - xsessions desktops
 alias xd="ls /usr/share/xsessions"
@@ -263,41 +245,20 @@ ex ()
   fi
 }
 
-#create a file called .zshrc-personal and put all your personal aliases
-#in there. They will not be overwritten by skel.
-
-[[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
-
-# reporting tools - install when not installed
-#neofetch
-#screenfetch
-#alsi
-#paleofetch
-#fetch
-#hfetch
-#sfetch
-#ufetch
-#pfetch
-#sysinfo
-#sysinfo-retro
-#cpufetch
-#colorscript random
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-if type rg &> /dev/null; then
-  export FZF_DEFAULT_COMMAND='rg --files'
-  export FZF_DEFAULT_OPTS='-m'
-fi
-
 #----------------------------------------
 #My Changes
 #----------------------------------------
-alias tree='tree -a -I .git'
-alias ll="${aliases[ls]:-ls} -al"
-alias dfc='cd ~/.dotfiles/home/'
+alias dfc='cd ~/.dotfiles/'
 alias nfc='cd ~/.config/nvim/'
 alias nv='/usr/bin/nvim'
 alias sleep='systemctl suspend'
-alias off='systemctl poweroff'
+alias off="sudo shutdown now"
+alias sr="sudo reboot"
+#-----------------------------------------------------------------------------
+
+
+
+
+
+
+
