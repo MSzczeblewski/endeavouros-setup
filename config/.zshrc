@@ -296,7 +296,7 @@ fi
 #----------------------------------------
 alias tree='tree -a -I .git'
 alias ll="${aliases[ls]:-ls} -al"
-alias dfc='cd ~/.dotfiles/home/'
+alias dfc='cd ~/.dotfiles/'
 alias nfc='cd ~/.config/nvim/'
 alias nv='/usr/bin/nvim'
 alias sleep='systemctl suspend'
