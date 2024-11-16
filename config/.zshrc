@@ -254,6 +254,10 @@ alias nv='/usr/bin/nvim'
 alias sleep='systemctl suspend'
 alias off="sudo shutdown now"
 alias sr="sudo reboot"
+
+#Clipboard
+alias yy='xsel --input --clipboard'
+alias pp='xsel --output --clipboard'
 #-----------------------------------------------------------------------------
 
 
