@@ -171,7 +171,7 @@ sudo pacman -Sy hyprland waybar rofi-wayland dunst hyprpaper hyprlock hypridle x
                 slurp grim xclip swappy \
                 ttf-font-awesome otf-font-awesome ttf-fira-sans ttf-fira-code   \
                 ttf-firacode-nerd gnome-themes-extra gtk-engine-murrine nwg-look \
-                openssh tree \
+                openssh tree btop coolercontrol-bin\
                 --noconfirm
 yay -S wlogout waypaper qogir-gtk-theme qogir-icon-theme --noconfirm
 
